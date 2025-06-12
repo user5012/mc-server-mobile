@@ -18,7 +18,7 @@ export default function Index() {
       <View
         style={{
           width: "100%",
-          paddingVertical: 57,
+          paddingVertical: 100,
           backgroundColor: "#131834",
           alignItems: "center",
           marginBottom: 24,
