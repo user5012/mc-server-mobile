@@ -24,7 +24,10 @@ export default function ConfigureServerScreen() {
     setSelected(name);
     // You can navigate or store selection here
     console.log("Selected server type:", name);
-    router.push("/configure-server-version");
+    router.push({
+      pathname: "/configure-server-version",
+      params: { type: name }
+    });
   };
 
   return (

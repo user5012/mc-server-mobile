@@ -1,3 +1,4 @@
+import { clearAllData } from "@/assets/scripts/storage";
 import StyleBtn from "@/components/ui/StyledBtn";
 import { useRouter } from "expo-router";
 import { Text, View } from "react-native";
@@ -83,6 +84,11 @@ export default function Index() {
           task={() => {
             router.push("/configure-server-type");
           }}
+        />
+        <StyleBtn text="delete storage" task={async () => {
+          await clearAllData();
+        }
+        }
         />
       </View>
     </View>

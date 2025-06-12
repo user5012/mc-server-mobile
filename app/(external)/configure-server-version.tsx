@@ -1,3 +1,6 @@
+import { saveInfo } from "@/assets/scripts/storage";
+import { router } from "expo-router";
+import { useSearchParams } from "expo-router/build/hooks";
 import React, { useState } from "react";
 import {
   Alert,
@@ -9,26 +12,43 @@ import {
   View,
 } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
-import versionsData from "../../assets/data/servers.json";
+import versionsDataVanila from "../../assets/data/servers.json";
 
 export default function ConfigureVersionScreen() {
+
+  const params = useSearchParams();
+  const type = params.get("type")
+
+
   const [selectedVersion, setSelectedVersion] = useState<string | null>(null);
   const [serverName, setServerName] = useState("");
   const [domain, setDomain] = useState("");
 
-  const handleSubmit = () => {
+  const handleSubmit = async () => {
     if (!selectedVersion || !serverName || !domain) {
       Alert.alert("Missing Info", "Please fill all fields.");
       return;
     }
 
-    const downloadLink = versionsData[selectedVersion]; //ignore
+    const downloadLink = versionsDataVanila[selectedVersion as keyof typeof versionsDataVanila]; //MAKE COMPILER STFU
     console.log({
       serverName,
       domain,
       version: selectedVersion,
       jarUrl: downloadLink,
+      type
     });
+
+    await saveInfo({
+      domain: domain,
+      type: type ?? '', //make ts shutup
+      version: selectedVersion,
+      name: serverName,
+      jar_url: downloadLink
+    })
+
+    router.push("/servers-list")
+
 
     // You can continue to next step here (like saving config or navigating)
   };
@@ -54,7 +74,7 @@ export default function ConfigureVersionScreen() {
 
         <Text style={styles.subtitle}>Select Minecraft Version</Text>
         <FlatList
-          data={Object.keys(versionsData)}
+          data={Object.keys(versionsDataVanila)}
           keyExtractor={(item) => item}
           contentContainerStyle={styles.list}
           renderItem={({ item }) => (

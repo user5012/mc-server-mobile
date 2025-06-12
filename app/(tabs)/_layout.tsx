@@ -5,8 +5,8 @@ import { Platform } from "react-native";
 import { HapticTab } from "@/components/HapticTab";
 import { IconSymbol } from "@/components/ui/IconSymbol";
 import TabBarBackground from "@/components/ui/TabBarBackground";
-import { Colors } from "@/constants/Colors";
 import { useColorScheme } from "@/hooks/useColorScheme";
+import MaterialCommunityIcons from '@expo/vector-icons/MaterialCommunityIcons';
 
 export default function TabLayout() {
   const colorScheme = useColorScheme();
@@ -14,7 +14,7 @@ export default function TabLayout() {
   return (
     <Tabs
       screenOptions={{
-        tabBarActiveTintColor: Colors[colorScheme ?? "light"].tint,
+        tabBarActiveTintColor: /*Colors[colorScheme ?? "light"].tint*/ "dark",
         headerShown: false,
         tabBarButton: HapticTab,
         tabBarBackground: TabBarBackground,
@@ -36,6 +36,14 @@ export default function TabLayout() {
           ),
         }}
       />
+      <Tabs.Screen
+        name="servers-list"
+        options={{
+          title: "servers",
+          tabBarIcon: ({ color }) => (
+            <MaterialCommunityIcons name="server" size={25} color={color} />
+          )
+        }} />
     </Tabs>
   );
 }
