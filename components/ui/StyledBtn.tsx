@@ -1,4 +1,4 @@
-import { Pressable, Runnable, Text } from "react-native";
+import { Runnable, Text, TouchableOpacity } from "react-native";
 
 interface props {
   task: Runnable;
@@ -7,7 +7,7 @@ interface props {
 
 export default function StyleBtn({ task, text }: props) {
   return (
-    <Pressable
+    <TouchableOpacity
       onPress={task}
       style={{
         backgroundColor: "#3182ce",
@@ -32,6 +32,6 @@ export default function StyleBtn({ task, text }: props) {
       >
         {text}
       </Text>
-    </Pressable>
+    </TouchableOpacity>
   );
 }
