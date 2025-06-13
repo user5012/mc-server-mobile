@@ -1,3 +1,4 @@
+import { deleteAllServers } from "@/assets/scripts/createserver";
 import { clearAllData } from "@/assets/scripts/storage";
 import StyleBtn from "@/components/ui/StyledBtn";
 import { useRouter } from "expo-router";
@@ -87,6 +88,7 @@ export default function Index() {
         />
         <StyleBtn text="delete storage" task={async () => {
           await clearAllData();
+          await deleteAllServers();
         }
         }
         />

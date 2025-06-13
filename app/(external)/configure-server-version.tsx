@@ -1,3 +1,4 @@
+import { makeServer } from "@/assets/scripts/createserver";
 import { saveInfo } from "@/assets/scripts/storage";
 import { router } from "expo-router";
 import { useSearchParams } from "expo-router/build/hooks";
@@ -38,6 +39,8 @@ export default function ConfigureVersionScreen() {
       jarUrl: downloadLink,
       type
     });
+
+    await makeServer(serverName, downloadLink);
 
     await saveInfo({
       domain: domain,
